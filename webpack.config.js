@@ -34,6 +34,8 @@ const GENERATE_SOURCE_MAPS =
 const DEVTOOL = GENERATE_SOURCE_MAPS ? 'source-map' : false;
 const GENERATE_DEMO_THEMES = process.env.MDC_GENERATE_DEMO_THEMES === 'true' && IS_DEV;
 
+const NEED_POLLING = process.env.POLL === 'on' ? {aggregateTimeout: 300, poll: 1000} : {};
+
 const banner = [
   '/*!',
   ' Material Components for the web',
@@ -122,6 +124,7 @@ module.exports = [{
   plugins: [
     createBannerPlugin(),
   ],
+  watchOptions: NEED_POLLING,
 }];
 
 if (!IS_DEV) {
@@ -251,5 +254,6 @@ if (IS_DEV) {
       createCssExtractTextPlugin(),
       createBannerPlugin(),
     ],
+    watchOptions: NEED_POLLING,
   });
 }
