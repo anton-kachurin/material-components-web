@@ -149,6 +149,9 @@ module.exports = function(config) {
 
     webpackMiddleware: {
       noInfo: true,
+      watchOptions: {
+        poll: true,
+      },
     },
   });
 
