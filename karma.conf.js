@@ -21,6 +21,17 @@ const USING_TRAVISCI = Boolean(process.env.TRAVIS);
 const USING_SL = Boolean(process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY);
 
 const SL_LAUNCHERS = {
+  'chrome-no-sandbox-headless': {
+    base: 'Chrome',
+    flags: [
+      '--no-sandbox',
+      // See https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+      '--headless',
+      '--disable-gpu',
+      // Without a remote debugging port, Google Chrome exits immediately.
+      ' --remote-debugging-port=9222',
+    ],
+  },
   'sl-chrome-stable': {
     base: 'SauceLabs',
     browserName: 'chrome',
@@ -173,5 +184,5 @@ module.exports = function(config) {
 };
 
 function determineBrowsers() {
-  return USING_SL ? Object.keys(SL_LAUNCHERS) : ['Chrome'];
+  return USING_SL ? Object.keys(SL_LAUNCHERS) : ['chrome-no-sandbox-headless'];
 }
