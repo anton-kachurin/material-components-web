@@ -104,6 +104,16 @@ const SL_LAUNCHERS = {
 };
 
 module.exports = function(config) {
+  const suite = (config.suite && typeof config.suite === 'string') ? config.suite : false;
+
+  if (suite) {
+    config.set({
+      client: {
+        args: ['--grep', suite],
+      },
+    });
+  }
+
   config.set({
     basePath: '',
     frameworks: ['mocha'],
